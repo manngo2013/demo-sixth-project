@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductList from './components/ProductList';
+import AddProductForm from './components/AddProductForm';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -25,6 +26,7 @@ function App() {
   return (
     <div className="App">
       <h1>Demo Working with Restful API</h1>
+      <AddProductForm />
       <ProductList products={products} />
     </div>
   );
