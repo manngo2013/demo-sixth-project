@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ProductList({ products }) {
   return (
@@ -22,7 +23,11 @@ function ProductList({ products }) {
               <td>{product.price}</td>
               <td>{product.content}</td>
               <td>{product.status}</td>
-              <td></td>
+              <td>
+                <Link to={`products/update/${product.id}`}>
+                  <button>Update</button>
+                </Link>
+              </td>
             </tr>
           );
         })}
