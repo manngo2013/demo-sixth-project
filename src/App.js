@@ -21,7 +21,7 @@ function App() {
     }
 
     getProducts();
-  }, [])
+  })
 
   return (
     <div className="App">
