@@ -1,15 +1,17 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ProductList({ products }) {
   const handleDeleteProduct = async (product) => {
-    const apiUrl = `http://localhost:4000/products/${product.id}`;
+    const apiUrl = `http://localhost:4001/products/${product.id}`;
 
     try {
       const res = await axios.delete(apiUrl);
-      alert("Deleted success");
+      toast.success("Deleted success!");
     } catch (error) {
+      toast.error("Delete error!");
       console.log("Error: ", error.message);
     }
   };

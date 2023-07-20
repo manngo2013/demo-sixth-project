@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 function AddProductForm(props) {
   const [name, setName] = useState("");
@@ -16,7 +17,11 @@ function AddProductForm(props) {
         content: content,
         status: status,
       });
-      console.log("Test create: ", res);
+      toast.success("Created success!");
+      setName("");
+      setPrice("");
+      setContent("");
+      setStatus("");
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -69,11 +74,9 @@ function AddProductForm(props) {
           <tr>
             <td></td>
             <td>
-              <input
-                type="submit"
-                value="Add"
-                onClick={() => handleAddProduct()}
-              />
+              <button type="button" onClick={() => handleAddProduct()}>
+                Add
+              </button>
             </td>
           </tr>
         </tbody>
