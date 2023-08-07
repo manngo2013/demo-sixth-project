@@ -11,10 +11,17 @@
   input,
   textarea {
     border-radius: 0;
-    margin-bottom: 1.43rem;
   }
 
   textarea {
     height: 180px;
+    margin-bottom: 1.43rem;
   }
+}
+
+.invalidFeedback {
+  text-align: left;
+  color: #ff4040;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 }

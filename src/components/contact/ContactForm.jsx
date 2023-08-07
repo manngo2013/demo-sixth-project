@@ -4,7 +4,11 @@ import styles from "./contactForm.module.scss";
 import { useForm } from "react-hook-form";
 
 function ContactForm(props) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -14,33 +18,37 @@ function ContactForm(props) {
         <Row>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-name">
             <Form.Control
-              {...register("name")}
+              {...register("name", { required: "This is required" })}
               type="text"
               placeholder="Your name"
             />
+            <p className={styles.invalidFeedback}>{errors?.name?.message}</p>
           </Form.Group>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-phone">
             <Form.Control
-              {...register("phone")}
+              {...register("phone", { required: "This is required" })}
               type="number"
               placeholder="Your phone"
             />
+            <p className={styles.invalidFeedback}>{errors?.phone?.message}</p>
           </Form.Group>
         </Row>
         <Row>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-email">
             <Form.Control
-              {...register("email")}
+              {...register("email", { required: "This is required" })}
               type="email"
               placeholder="Your email"
             />
+            <p className={styles.invalidFeedback}>{errors?.email?.message}</p>
           </Form.Group>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-subject">
             <Form.Control
-              {...register("subject")}
+              {...register("subject", { required: "This is required" })}
               type="text"
               placeholder="Your subject"
             />
+            <p className={styles.invalidFeedback}>{errors?.subject?.message}</p>
           </Form.Group>
         </Row>
         <Row>
