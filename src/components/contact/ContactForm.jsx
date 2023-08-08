@@ -2,13 +2,31 @@ import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import styles from "./contactForm.module.scss";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 function ContactForm(props) {
+  const phoneRegex =
+    /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im;
+
+  const schema = yup.object({
+    name: yup.string().required(),
+    phone: yup
+      .string()
+      .typeError("phone must a specify a number")
+      .matches(phoneRegex, "You must specify a valid phone number")
+      .required(),
+    email: yup.string().email().required(),
+    subject: yup.string().required(),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -18,7 +36,7 @@ function ContactForm(props) {
         <Row>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-name">
             <Form.Control
-              {...register("name", { required: "This is required" })}
+              {...register("name")}
               type="text"
               placeholder="Your name"
             />
@@ -26,7 +44,7 @@ function ContactForm(props) {
           </Form.Group>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-phone">
             <Form.Control
-              {...register("phone", { required: "This is required" })}
+              {...register("phone")}
               type="number"
               placeholder="Your phone"
             />
@@ -36,7 +54,7 @@ function ContactForm(props) {
         <Row>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-email">
             <Form.Control
-              {...register("email", { required: "This is required" })}
+              {...register("email")}
               type="email"
               placeholder="Your email"
             />
@@ -44,7 +62,7 @@ function ContactForm(props) {
           </Form.Group>
           <Form.Group as={Col} sm={{ span: 6 }} controlId="contact-subject">
             <Form.Control
-              {...register("subject", { required: "This is required" })}
+              {...register("subject")}
               type="text"
               placeholder="Your subject"
             />
