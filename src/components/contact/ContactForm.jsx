@@ -4,6 +4,7 @@ import styles from "./contactForm.module.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 
 function ContactForm(props) {
   const phoneRegex =
@@ -24,10 +25,23 @@ function ContactForm(props) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const apiUrl = "http://localhost:4000/contacts";
+    try {
+      const res = await axios.post(apiUrl, data);
+      if (res?.status === 201) {
+        reset();
+      } else {
+        console.log("Error");
+      }
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
 
   return (
     <div>
